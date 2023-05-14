@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -125,5 +126,10 @@ public class AuthController {
     userRepository.save(user);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+  }
+  
+  @PostMapping("/token")
+  public Boolean tokenVerification(@RequestBody String token) {
+	  return jwtUtils.validateJwtToken(token);
   }
 }
